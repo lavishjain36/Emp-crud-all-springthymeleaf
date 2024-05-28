@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Managment System</title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+            crossorigin="anonymous"
+    />
+</head>
+
+
+<!--Header part -->
+<nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <h1 style="color: white">
+                Home, Welcome
+
+            </h1>
+
+        </div>
+    </div>
+    </div>
+</nav>
+
+<section>
+    <div class="container p-5">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <a
+                        th:href="@{/showNewEmployeeForm/{id}}"
+                        class="btn btn-info btn-sm mb-3">Add Employee</a>
+                <div class="card">
+                    <div class="card-header bg-success text-center fs-4">Employee Details</div>
+
+
+                    <div class="card-body">
+                        <table class="table">
+                            <thead class=" " style="font-size:large; text-align:center;">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Actions</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="e,c:${empList}">
+                                <th scope="row">[[${c.count}]]</th>
+                                <td>[[${e.firstName}]]</td>
+                                <td>[[${e.lastName}]]</td>
+                                <td>[[${e.email}]]</td>
+
+                                <td>
+                                    <a th:href="@{'showFormForUpdate/'+${e.id}}"
+                                       class="btn btn-sm btn-primary">Update</a>
+<!--                                    <a th:href="@{/delete/{id}(id=${employee.id})}"-->
+<!--                                       class="btn btn-sm btn-danger">Delete</a>-->
+                                    <a th:href="@{/delete/{id}(id=${e.id})}" class="btn btn-sm btn-danger">Delete</a>
+
+
+                                    <a th:href="@{'viewEmployee/'+${e.id}}"
+                                   class="btn btn-sm btn-danger">View</a></td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
