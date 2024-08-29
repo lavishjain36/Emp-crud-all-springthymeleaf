@@ -78,6 +78,104 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>empmanage.EmpmanageApplication</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <version>3.15.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>pmd</goal>
+                        <goal>cpd-check</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <linkXref>true</linkXref>
+                <targetJdk>17</targetJdk>
+                <outputDirectory>${project.build.directory}/pmd-report</outputDirectory>
+            </configuration>
+        </plugin>
+
+			<!-- JaCoCo Plugin -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.8</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outputDirectory>${project.build.directory}/jacoco-report</outputDirectory>
+				</configuration>
+			</plugin>
+			<!-- End JaCoCo Plugin -->
+
+			<!-- Asciidoctor Maven Plugin -->
+        <plugin>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctor-maven-plugin</artifactId>
+            <version>2.2.1</version>
+            <executions>
+                <execution>
+                    <id>process-asciidoc</id>
+                    <goals>
+                        <goal>process-asciidoc</goal>
+                    </goals>
+                    <phase>generate-resources</phase>
+                    <configuration>
+                        <backend>pdf</backend>
+                        <sourceDocumentName>index.adoc</sourceDocumentName>
+                        <outputDirectory>${project.build.directory}/pdf</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <!-- Maven Site Plugin -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>3.9.1</version> <!-- Latest stable version -->
+            <configuration>
+                <outputDirectory>${project.build.directory}/site</outputDirectory>
+            </configuration>
+        </plugin>
+
+
 		</plugins>
 	</build>
 
